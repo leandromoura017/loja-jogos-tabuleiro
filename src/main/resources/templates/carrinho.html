@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="fragments/layout :: head"></head>
+
+<body>
+<!-- HEADER -->
+<header th:replace="fragments/layout :: header"></header>
+<!-- /HEADER -->
+
+<!-- NAVIGATION -->
+<nav th:replace="fragments/layout :: navigation"></nav>
+<!-- /NAVIGATION -->
+
+<!-- SECTION -->
+<div class="section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h2>Carrinho de Compras</h2>
+
+                <!-- Tabela do carrinho -->
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th>Imagem</th>
+                            <th>Nome</th>
+                            <th>Categoria</th>
+                            <th>Preço</th>
+                            <th>Detalhes</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="jogo : ${carrinho}">
+                            <td>
+                                <img th:src="${jogo.imgUrl}" alt="Imagem do jogo"
+                                     style="width: 80px; height: 80px; object-fit: cover;">
+                            </td>
+                            <td>
+                                <h4 th:text="${jogo.nome}">Nome do Jogo</h4>
+                            </td>
+                            <td th:text="${jogo.categoria}">Categoria</td>
+                            <td>
+                                <h4 class="text-success" th:text="'R$ ' + ${#numbers.formatDecimal(jogo.preco, 1, 2)}">R$ 0,00</h4>
+                            </td>
+                            <td>
+                                <p><strong>Idade:</strong> <span th:text="${jogo.idadeMinima} + '+'">0+</span></p>
+                                <p><strong>Jogadores:</strong> <span th:text="${jogo.numeroJogadores}">0</span></p>
+                                <p><strong>Tempo:</strong> <span th:text="${jogo.tempoJogoMinutos} + ' min'">0 min</span></p>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Resumo do carrinho -->
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">Resumo do Pedido</h3>
+                            </div>
+                            <div class="panel-body">
+                                <p><strong>Total de itens:</strong> <span th:text="${carrinho.size()}">0</span></p>
+                                <p><strong>Valor total:</strong>
+                                    <span class="text-success" style="font-size: 1.2em;">
+                                            R$ <span th:text="${#numbers.formatDecimal(#aggregates.sum(carrinho.![preco]), 1, 2)}">0,00</span>
+                                        </span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="panel panel-info">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">Informações de Entrega</h3>
+                            </div>
+                            <div class="panel-body">
+                                <p><i class="fa fa-truck"></i> Frete grátis para compras acima de R$ 100,00</p>
+                                <p><i class="fa fa-clock-o"></i> Entrega em até 5 dias úteis</p>
+                                <p><i class="fa fa-shield"></i> Compra 100% segura</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Botões de ação -->
+                <div class="text-center" style="margin-top: 30px;">
+                    <a th:href="@{/index}" class="btn btn-default btn-lg">
+                        <i class="fa fa-arrow-left"></i> Continuar Comprando
+                    </a>
+                    <a th:href="@{/finalizarCompra}" class="btn btn-success btn-lg"
+                       onclick="return confirm('Tem certeza que deseja finalizar a compra?')">
+                        <i class="fa fa-check"></i> Finalizar Compra
+                    </a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /SECTION -->
+
+<!-- FOOTER -->
+<footer th:replace="fragments/layout :: footer"></footer>
+<!-- /FOOTER -->
+
+<!-- Scripts -->
+<div th:replace="fragments/layout :: scripts"></div>
+</body>
+</html>

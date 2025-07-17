@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="fragments/layout :: head"></head>
+
+<body>
+<!-- HEADER -->
+<header th:replace="fragments/layout :: header"></header>
+<!-- /HEADER -->
+
+<!-- NAVIGATION -->
+<nav th:replace="fragments/layout :: navigation"></nav>
+<!-- /NAVIGATION -->
+
+<!-- SECTION -->
+<div class="section">
+    <div class="container">
+        <div class="row">
+
+            <!-- Mensagens de feedback -->
+            <div class="col-md-12" th:if="${sucesso}">
+                <div class="alert alert-success alert-dismissible">
+                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                    <span th:text="${sucesso}"></span>
+                </div>
+            </div>
+
+            <div class="col-md-12" th:if="${erro}">
+                <div class="alert alert-danger alert-dismissible">
+                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                    <span th:text="${erro}"></span>
+                </div>
+            </div>
+
+            <div class="col-md-12" th:if="${info}">
+                <div class="alert alert-info alert-dismissible">
+                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                    <span th:text="${info}"></span>
+                </div>
+            </div>
+
+            <!-- STORE -->
+            <div id="store" class="col-md-12">
+                <!-- store top filter -->
+                <div class="store-filter clearfix">
+                    <div class="store-sort">
+                        <label>
+                            Ordenar por:
+                            <select class="input-select">
+                                <option value="0">Popular</option>
+                                <option value="1">Posição</option>
+                                <option value="2">Nome</option>
+                                <option value="3">Preço</option>
+                            </select>
+                        </label>
+                    </div>
+                    <ul class="store-grid">
+                        <li class="active"><i class="fa fa-th"></i></li>
+                        <li><a href="#"><i class="fa fa-th-list"></i></a></li>
+                    </ul>
+                </div>
+                <!-- /store top filter -->
+
+                <!-- store products -->
+                <div class="row">
+                    <!-- product -->
+                    <div class="col-md-4 col-xs-6" th:each="jogo : ${jogos}">
+                        <div class="product">
+                            <div class="product-img">
+                                <img th:src="${jogo.imgUrl}" alt="" style="width: 100%; height: 250px; object-fit: cover;">
+                                <div class="product-label">
+                                    <span class="sale" th:if="${jogo.preco < 50}">-20%</span>
+                                    <span class="new">NOVO</span>
+                                </div>
+                            </div>
+                            <div class="product-body">
+                                <p class="product-category" th:text="${jogo.categoria}">Categoria</p>
+                                <h3 class="product-name"><a href="#" th:text="${jogo.nome}">Nome do Jogo</a></h3>
+                                <h4 class="product-price" th:text="'R$ ' + ${#numbers.formatDecimal(jogo.preco, 1, 2)}">R$ 0,00</h4>
+                                <div class="product-rating">
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                </div>
+                                <div class="product-btns">
+                                    <button class="add-to-wishlist"><i class="fa fa-heart-o"></i><span class="tooltipp">Favoritos</span></button>
+                                    <button class="add-to-compare"><i class="fa fa-exchange"></i><span class="tooltipp">Comparar</span></button>
+                                    <button class="quick-view"><i class="fa fa-eye"></i><span class="tooltipp">Visualizar</span></button>
+                                </div>
+                            </div>
+                            <div class="add-to-cart">
+                                <a th:href="@{/adicionarCarrinho(id=${jogo.id})}" class="add-to-cart-btn" sec:authorize="hasRole('USER') or hasRole('ADMIN')">
+                                    <i class="fa fa-shopping-cart"></i> Adicionar ao Carrinho
+                                </a>
+                                <div sec:authorize="!isAuthenticated()" class="add-to-cart-btn" style="background-color: #ccc; cursor: not-allowed;">
+                                    <i class="fa fa-lock"></i> Faça login para comprar
+                                </div>
+                            </div>
+                            <div class="product-details">
+                                <p><strong>Idade:</strong> <span th:text="${jogo.idadeMinima} + ' anos'">0+ anos</span></p>
+                                <p><strong>Jogadores:</strong> <span th:text="${jogo.numeroJogadores}">0</span></p>
+                                <p><strong>Tempo:</strong> <span th:text="${jogo.tempoJogoMinutos} + ' min'">0 min</span></p>
+                                <p class="product-description" th:text="${jogo.descricao}">Descrição do jogo</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /product -->
+                </div>
+                <!-- /store products -->
+
+                <!-- store bottom filter -->
+                <div class="store-filter clearfix">
+                    <span class="store-qty" th:text="'Mostrando ' + ${jogos.size()} + ' jogos'">Mostrando 0 jogos</span>
+                    <ul class="store-pagination">
+                        <li class="active">1</li>
+                        <li><a href="#">2</a></li>
+                        <li><a href="#">3</a></li>
+                        <li><a href="#">4</a></li>
+                        <li><a href="#"><i class="fa fa-angle-right"></i></a></li>
+                    </ul>
+                </div>
+                <!-- /store bottom filter -->
+            </div>
+            <!-- /STORE -->
+        </div>
+    </div>
+</div>
+<!-- /SECTION -->
+
+<!-- FOOTER -->
+<footer th:replace="fragments/layout :: footer"></footer>
+<!-- /FOOTER -->
+
+<!-- Scripts -->
+<div th:replace="fragments/layout :: scripts"></div>
+</body>
+</html>

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/layout :: head"></head>
+
+<body>
+    <!-- HEADER -->
+    <header th:replace="fragments/layout :: header"></header>
+    <!-- /HEADER -->
+
+    <!-- NAVIGATION -->
+    <nav th:replace="fragments/layout :: navigation"></nav>
+    <!-- /NAVIGATION -->
+
+    <!-- SECTION -->
+    <div class="section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 col-md-offset-2">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title text-center">Cadastro de Usuário</h3>
+                        </div>
+                        <div class="panel-body">
+                            
+                            <!-- Mensagem de erro geral -->
+                            <div th:if="${erro}" class="alert alert-danger">
+                                <span th:text="${erro}"></span>
+                            </div>
+                            
+                            <!-- Formulário de cadastro -->
+                            <form th:action="@{/salvarUsuario}" th:object="${usuario}" method="post" class="form-horizontal">
+                                
+                                <!-- Nome Completo -->
+                                <div class="form-group" th:classappend="${#fields.hasErrors('nomeCompleto')} ? 'has-error'">
+                                    <label for="nomeCompleto" class="col-sm-3 control-label">Nome Completo *</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control" id="nomeCompleto" th:field="*{nomeCompleto}" 
+                                               placeholder="Digite seu nome completo">
+                                        <span class="help-block" th:if="${#fields.hasErrors('nomeCompleto')}" 
+                                              th:errors="*{nomeCompleto}">Erro no nome</span>
+                                    </div>
+                                </div>
+
+                                <!-- Email -->
+                                <div class="form-group" th:classappend="${#fields.hasErrors('email')} ? 'has-error'">
+                                    <label for="email" class="col-sm-3 control-label">Email *</label>
+                                    <div class="col-sm-9">
+                                        <input type="email" class="form-control" id="email" th:field="*{email}" 
+                                               placeholder="Digite seu email">
+                                        <span class="help-block" th:if="${#fields.hasErrors('email')}" 
+                                              th:errors="*{email}">Erro no email</span>
+                                    </div>
+                                </div>
+
+                                <!-- Username -->
+                                <div class="form-group" th:classappend="${#fields.hasErrors('username')} ? 'has-error'">
+                                    <label for="username" class="col-sm-3 control-label">Usuário *</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control" id="username" th:field="*{username}" 
+                                               placeholder="Digite seu nome de usuário">
+                                        <span class="help-block" th:if="${#fields.hasErrors('username')}" 
+                                              th:errors="*{username}">Erro no usuário</span>
+                                    </div>
+                                </div>
+
+                                <!-- Password -->
+                                <div class="form-group" th:classappend="${#fields.hasErrors('password')} ? 'has-error'">
+                                    <label for="password" class="col-sm-3 control-label">Senha *</label>
+                                    <div class="col-sm-9">
+                                        <input type="password" class="form-control" id="password" th:field="*{password}" 
+                                               placeholder="Digite sua senha (mínimo 6 caracteres)">
+                                        <span class="help-block" th:if="${#fields.hasErrors('password')}" 
+                                              th:errors="*{password}">Erro na senha</span>
+                                    </div>
+                                </div>
+
+                                <!-- Checkbox Admin -->
+                                <div class="form-group">
+                                    <div class="col-sm-offset-3 col-sm-9">
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" th:field="*{isAdmin}"> 
+                                                Usuário Administrador
+                                            </label>
+                                        </div>
+                                        <small class="help-block">Marque esta opção se o usuário deve ter privilégios de administrador</small>
+                                    </div>
+                                </div>
+
+                                <!-- Botões -->
+                                <div class="form-group">
+                                    <div class="col-sm-offset-3 col-sm-9">
+                                        <button type="submit" class="btn btn-primary">
+                                            <i class="fa fa-save"></i> Cadastrar
+                                        </button>
+                                        <a th:href="@{/login}" class="btn btn-default">
+                                            <i class="fa fa-times"></i> Cancelar
+                                        </a>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /SECTION -->
+
+    <!-- FOOTER -->
+    <footer th:replace="fragments/layout :: footer"></footer>
+    <!-- /FOOTER -->
+
+    <!-- Scripts -->
+    <div th:replace="fragments/layout :: scripts"></div>
+</body>
+</html>
+

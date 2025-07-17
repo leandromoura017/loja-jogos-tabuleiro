@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:fragment="head">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title th:text="${title} ?: 'Loja de Jogos de Tabuleiro'">Loja de Jogos de Tabuleiro</title>
+
+    <!-- Google font -->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700" rel="stylesheet">
+
+    <!-- Bootstrap -->
+    <link type="text/css" rel="stylesheet" th:href="@{/css/bootstrap.min.css}"/>
+
+    <!-- Slick -->
+    <link type="text/css" rel="stylesheet" th:href="@{/css/slick.css}"/>
+    <link type="text/css" rel="stylesheet" th:href="@{/css/slick-theme.css}"/>
+
+    <!-- nouislider -->
+    <link type="text/css" rel="stylesheet" th:href="@{/css/nouislider.min.css}"/>
+
+    <!-- Font Awesome Icon -->
+    <link rel="stylesheet" th:href="@{/css/font-awesome.min.css}">
+
+    <!-- Custom stlylesheet -->
+    <link type="text/css" rel="stylesheet" th:href="@{/css/style.css}"/>
+</head>
+
+<!-- HEADER -->
+<header th:fragment="header">
+    <!-- TOP HEADER -->
+    <div id="top-header">
+        <div class="container">
+            <ul class="header-links pull-left">
+                <li><a href="#"><i class="fa fa-phone"></i> +55 84 00000-0000</a></li>
+                <li><a href="#"><i class="fa fa-envelope-o"></i> contato@electro.com</a></li>
+                <li><a href="#"><i class="fa fa-map-marker"></i> Macaíba, RN</a></li>
+            </ul>
+            <ul class="header-links pull-right">
+                <li sec:authorize="isAuthenticated()">
+                    <span>Olá, <span sec:authentication="name">Usuário</span>!</span>
+                </li>
+                <li sec:authorize="isAuthenticated()">
+                    <a th:href="@{/logout}"><i class="fa fa-sign-out"></i> Sair</a>
+                </li>
+                <li sec:authorize="!isAuthenticated()">
+                    <a th:href="@{/login}"><i class="fa fa-user-o"></i> Login</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <!-- /TOP HEADER -->
+
+    <!-- MAIN HEADER -->
+    <div id="header">
+        <div class="container">
+            <div class="row">
+                <!-- LOGO -->
+                <div class="col-md-3">
+                    <div class="header-logo">
+                        <a href="#" class="logo">
+                            <img th:src="@{/img/logo.png}" alt="Logo">
+                        </a>
+                    </div>
+                </div>
+                <!-- /LOGO -->
+
+                <!-- SEARCH BAR -->
+                <div class="col-md-6">
+                    <div class="header-search">
+                        <form>
+                            <select class="input-select">
+                                <option value="0">Todas as Categorias</option>
+                                <option value="1">Estratégia</option>
+                                <option value="2">Família</option>
+                                <option value="3">Cooperativo</option>
+                                <option value="4">Party Games</option>
+                            </select>
+                            <input class="input" placeholder="Buscar jogos...">
+                            <button class="search-btn">Buscar</button>
+                        </form>
+                    </div>
+                </div>
+                <!-- /SEARCH BAR -->
+
+                <!-- ACCOUNT -->
+                <div class="col-md-3 clearfix">
+                    <div class="header-ctn">
+                        <!-- Cart -->
+                        <div class="dropdown">
+                            <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true" th:href="@{/carrinho}">
+                                <i class="fa fa-shopping-cart"></i>
+                                <span>Carrinho</span>
+                                <div class="qty" th:text="${session.carrinho != null ? session.carrinho.size() : 0}">0</div>
+                            </a>
+                        </div>
+                        <!-- /Cart -->
+
+                        <!-- Menu Toogle -->
+                        <div class="menu-toggle">
+                            <a href="#">
+                                <i class="fa fa-bars"></i>
+                                <span>Menu</span>
+                            </a>
+                        </div>
+                        <!-- /Menu Toogle -->
+                    </div>
+                </div>
+                <!-- /ACCOUNT -->
+            </div>
+        </div>
+    </div>
+    <!-- /MAIN HEADER -->
+</header>
+<!-- /HEADER -->
+
+<!-- NAVIGATION -->
+<nav th:fragment="navigation" id="navigation">
+    <div class="container">
+        <div id="responsive-nav">
+            <!-- NAV -->
+            <ul class="main-nav nav navbar-nav">
+                <li><a th:href="@{/index}">Início</a></li>
+                <li><a href="#">Estratégia</a></li>
+                <li><a href="#">Família</a></li>
+                <li><a href="#">Cooperativo</a></li>
+                <li><a href="#">Party Games</a></li>
+                <li sec:authorize="hasRole('ADMIN')"><a th:href="@{/admin}">Administração</a></li>
+            </ul>
+            <!-- /NAV -->
+        </div>
+    </div>
+</nav>
+<!-- /NAVIGATION -->
+
+<!-- FOOTER -->
+<footer th:fragment="footer" id="footer">
+    <!-- top footer -->
+    <div class="section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3 col-xs-6">
+                    <div class="footer">
+                        <h3 class="footer-title">Sobre Nós</h3>
+                        <p>Somos estudantes do curso de ADS que montamos essa loja para tentar termínar o curso, se não der certo o curso
+                        pelo menos temos um negócio.</p>
+                        <ul class="footer-links">
+                            <li><a href="#"><i class="fa fa-map-marker"></i>Macaíba, RN</a></li>
+                            <li><a href="#"><i class="fa fa-phone"></i>+55 84 00000-0000</a></li>
+                            <li><a href="#"><i class="fa fa-envelope-o"></i>contato@electro.com</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="col-md-3 col-xs-6">
+                    <div class="footer">
+                        <h3 class="footer-title">Categorias</h3>
+                        <ul class="footer-links">
+                            <li><a href="#">Jogos de Estratégia</a></li>
+                            <li><a href="#">Jogos para Família</a></li>
+                            <li><a href="#">Jogos Cooperativos</a></li>
+                            <li><a href="#">Party Games</a></li>
+                            <li><a href="#">Jogos Clássicos</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="clearfix visible-xs"></div>
+
+                <div class="col-md-3 col-xs-6">
+                    <div class="footer">
+                        <h3 class="footer-title">Informações</h3>
+                        <ul class="footer-links">
+                            <li><a href="#">Sobre Nós</a></li>
+                            <li><a href="#">Contato</a></li>
+                            <li><a href="#">Política de Privacidade</a></li>
+                            <li><a href="#">Termos de Uso</a></li>
+                            <li><a href="#">FAQ</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="col-md-3 col-xs-6">
+                    <div class="footer">
+                        <h3 class="footer-title">Atendimento</h3>
+                        <ul class="footer-links">
+                            <li><a href="#">Minha Conta</a></li>
+                            <li><a href="#">Histórico de Pedidos</a></li>
+                            <li><a href="#">Lista de Desejos</a></li>
+                            <li><a href="#">Newsletter</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /top footer -->
+
+    <!-- bottom footer -->
+    <div id="bottom-footer" class="section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <span class="copyright">
+                        Copyright &copy;<script>document.write(new Date().getFullYear());</script> Todos os direitos reservados | Leandro Moura
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /bottom footer -->
+</footer>
+<!-- /FOOTER -->
+
+<!-- Scripts -->
+<div th:fragment="scripts">
+    <!-- jQuery Plugins -->
+    <script th:src="@{/js/jquery.min.js}"></script>
+    <script th:src="@{/js/bootstrap.min.js}"></script>
+    <script th:src="@{/js/slick.min.js}"></script>
+    <script th:src="@{/js/nouislider.min.js}"></script>
+    <script th:src="@{/js/jquery.zoom.min.js}"></script>
+    <script th:src="@{/js/main.js}"></script>
+</div>
+
+</html>
