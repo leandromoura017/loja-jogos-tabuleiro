@@ -14,6 +14,7 @@ Uma aplicação web completa para gerenciamento de uma loja de jogos de tabuleir
 - ✅ Páginas personalizadas de login e cadastro de usuários
 - ✅ Controle de acesso baseado em roles (ADMIN e USER)
 
+
 ### Funcionalidades Avançadas
 - ✅ API RESTful com relacionamentos 1-1, 1-N e N-N
 - ✅ DTOs para request/response
