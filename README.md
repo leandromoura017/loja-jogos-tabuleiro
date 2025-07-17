@@ -85,3 +85,29 @@ src/
 │       └── application.properties
 └── test/                   # Testes unitários
 ```
+
+## Imagens do Projeto
+
+### Tela Inicial
+
+![Image](https://github.com/user-attachments/assets/658416dd-99de-4cb6-892f-c1739cad468e)
+
+### Tela de Login
+
+<img width="1600" height="712" alt="Image" src="https://github.com/user-attachments/assets/e1070936-ce86-48e5-b518-6de0954735f9" />
+
+### Tela de Cadastro de Usuário
+
+<img width="1600" height="730" alt="Image" src="https://github.com/user-attachments/assets/130126dd-438c-4f03-b159-b4122ee1ce3b" />
+
+### Tela do Carrinho de Compras
+
+<img width="986" height="473" alt="Image" src="https://github.com/user-attachments/assets/c0d97c9a-04bc-4274-af43-12c5b00d8572" />
+
+### Tela do ADMIN 
+
+<img width="502" height="488" alt="Image" src="https://github.com/user-attachments/assets/9645e1eb-0b4c-427d-88e7-76afb9da6aeb" />
+
+### Tela de Cadastro de um Novo Jogo
+
+<img width="470" height="287" alt="Image" src="https://github.com/user-attachments/assets/1af23cc8-c576-47fe-ad7b-2466a6d4e423" />
